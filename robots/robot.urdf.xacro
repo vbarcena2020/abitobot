@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="abitobot">
+  <!--  includes  -->
+  <xacro:include filename="$(find abitobot)/urdf/utils/utils.urdf.xacro" />
+  <xacro:include filename="$(find abitobot)/urdf/base/robot_base.urdf.xacro" />
+  <xacro:include filename="$(find abitobot)/urdf/wheels/robot_wheel.urdf.xacro" />
+  <xacro:include filename="$(find abitobot)/urdf/arm/scara.urdf.xacro" />
+  <xacro:include filename="$(find abitobot)/urdf/arm/gripper.urdf.xacro" />
+  <xacro:include filename="$(find abitobot)/urdf/sensors/imu.urdf.xacro" />
+  <xacro:include filename="$(find abitobot)/urdf/sensors/camera.urdf.xacro" />
+  <!--  Propiedades  -->
+  <xacro:property name="wheel_left_y" value="3.14159" />
+  <xacro:property name="wheel_right_y" value="3.14159" />
+  <xacro:property name="pose_camera_base" value="0.90000 0.00000 -0.06545" />
+  <xacro:property name="pose_camera_gripper" value="0.00000 0.00000 -0.05" />
+  <xacro:property name="ori_camera_base" value="0.00000 0.00000 0.00000" />
+  <xacro:property name="ori_camera_gripper" value="0.00000 1.5708 0.00000" />
+
+  <xacro:arg name="parent" default="base_link" />
+  <xacro:arg name="parent_gripper" default="gripper_link" />
+
+  <!--  Utils  -->
+  <xacro:utils />
+  <!--  Robot base  -->
+  <xacro:robot_base prefix="$(arg parent)" />
+  <!--  Wheels  -->
+  <xacro:robot_wheel prefix="left_back" y="${wheel_left_y}" />
+  <xacro:robot_wheel prefix="left_front" y="${wheel_left_y}" />
+  <xacro:robot_wheel prefix="right_back" y="${wheel_right_y}" />
+  <xacro:robot_wheel prefix="right_front" y="${wheel_right_y}" />
+  <!--  Arm  -->
+  <xacro:scara parent="$(arg parent)" />
+  <xacro:gripper />
+  <!--  IMU  -->
+  <xacro:imu_sensor parent="$(arg parent)" />
+  <!--  Camera  -->
+  <xacro:camera prefix="" parent="$(arg parent)" pose="${pose_camera_base}" ori="${ori_camera_base}" />
+  <xacro:camera prefix="_gripper" parent="$(arg parent_gripper)" pose="${pose_camera_gripper}" ori="${ori_camera_gripper}" />
+
+  <!--  Gazebo  -->
+  <xacro:include filename="$(find abitobot)/urdf/ros2_control.urdf.xacro"/>
+  <xacro:arg name="config_controllers" default="$(find abitobot)/config/abitobot_controllers.yaml"/>
+  <xacro:arg name="update_rate" default="20"/>
+  <xacro:ros2_control/>
+   
+</robot>

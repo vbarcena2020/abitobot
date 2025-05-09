@@ -1,0 +1,135 @@
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="abitobot">
+  <xacro:macro name="scara" params="parent">
+    <joint name="arm_1_link_joint" type="continuous">
+      <limit lower="0" upper="0" effort="5000" velocity="100" />
+      <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 0.82869" />
+      <parent link="base_arm_link" />
+      <child link="arm_1_link" />
+      <axis xyz="0.00000 0.00000 1.00000" />
+    </joint>
+    <joint name="arm_2_link_joint" type="continuous">
+      <limit lower="0" upper="0" effort="5000" velocity="100" />
+      <origin rpy="0.00000 0.00000 0.00000" xyz="0.65000 -0.00000 0.1000" />
+      <parent link="arm_1_link" />
+      <child link="arm_2_link" />
+      <axis xyz="0.00000 0.00000 1.00000" />
+    </joint>
+    <joint name="arm_3_link_joint" type="prismatic">
+      <limit lower="-1.15000" upper="1.15000" effort="5000" velocity="100" />
+      <origin rpy="0.00000 0.00000 0.00000" xyz="1.45000 0.00000 0.00000" />
+      <parent link="arm_2_link" />
+      <child link="arm_3_link" />
+      <axis xyz="0.00000 0.00000 1.00000" />
+    </joint>
+    <joint name="base_link_joint" type="fixed">
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.47500 0.00000 0.95586" />
+      <parent link="${parent}" />
+      <child link="base_arm_link" />
+    </joint>
+    <!-- <joint name="visual_elbow_link_joint" type="fixed">
+      <origin rpy="0.00000 0.00000 0.00000" xyz="0.65000 -0.00000 0.05000" />
+      <parent link="arm_1_link" />
+      <child link="visual_elbow_link" />
+    </joint> -->
+
+    <link name="arm_1_link">
+      <collision name="arm_1_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.35000 0.00000 0.00000" />
+        <geometry>
+          <mesh filename="file://$(find abitobot)/meshes/dae/arm_1.dae"
+            scale="0.50000 0.25000 0.05000" />
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.03272" ixy="0.00000" ixz="-0.00000" iyy="0.12587" iyz="0.00000"
+          izz="0.15525" />
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.35000 -0.00000 -0.00000" />
+        <mass value="2.00000" />
+      </inertial>
+      <visual name="arm_1">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.35000 0.00000 -0.00000" />
+        <material name="gray" />
+        <geometry>
+          <mesh filename="file://$(find abitobot)/meshes/dae/arm_1.dae"
+            scale="0.50000 0.25000 0.05000" />
+        </geometry>
+      </visual>
+    </link>
+    <link name="arm_2_link">
+      <collision name="arm_2_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.70000 0.00000 0.00000" />
+        <geometry>
+          <mesh filename="file://$(find abitobot)/meshes/dae/arm_2.dae"
+            scale="1.00000 0.25000 0.05000" />
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.03272" ixy="-0.00000" ixz="-0.00000" iyy="0.49846" iyz="0.00000"
+          izz="0.52785" />
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.70000 -0.00000 0.00000" />
+        <mass value="2.00000" />
+      </inertial>
+      <visual name="arm_2">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.70000 0.00000 0.00000" />
+        <material name="gray" />
+        <geometry>
+          <mesh filename="file://$(find abitobot)/meshes/dae/arm_2.dae"
+            scale="1.00000 0.25000 0.05000" />
+        </geometry>
+      </visual>
+    </link>
+    <link name="arm_3_link">
+      <inertial>
+        <inertia ixx="2.09333" ixy="0.00000" ixz="0.00000" iyy="2.09333" iyz="0.00000"
+          izz="0.02000" />
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000" />
+        <mass value="4.00000" />
+      </inertial>
+      <visual name="arm_3">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000" />
+        <material name="gray" />
+        <geometry>
+          <cylinder radius="0.10000" length="2.50000" />
+        </geometry>
+      </visual>
+    </link>
+    <link name="base_arm_link">
+      <collision name="base_arm_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 0.00000" />
+        <geometry>
+          <mesh filename="file://$(find abitobot)/meshes/dae/base_arm.dae"
+            scale="0.37500 0.37500 0.05000" />
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="15.95192" ixy="-0.00000" ixz="0.00000" iyy="15.95192" iyz="-0.00000"
+          izz="3.50969" />
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 -0.07130" />
+        <mass value="100.00000" />
+      </inertial>
+      <visual name="base_arm">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000" />
+        <material name="gray" />
+        <geometry>
+          <mesh filename="file://$(find abitobot)/meshes/dae/base_arm.dae"
+            scale="0.37500 0.37500 0.05000" />
+        </geometry>
+      </visual>
+    </link>
+    <!-- <link name="visual_elbow_link">
+      <inertial>
+        <inertia ixx="0.02167" ixy="0.00000" ixz="0.00000" iyy="0.02167" iyz="0.00000"
+          izz="0.02250" />
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000" />
+        <mass value="2.00000" />
+      </inertial>
+      <visual name="visual_elbow">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000" />
+        <material name="gray" />
+        <geometry>
+          <cylinder radius="0.15000" length="0.25000" />
+        </geometry>
+      </visual>
+    </link> -->
+  </xacro:macro>
+</robot>

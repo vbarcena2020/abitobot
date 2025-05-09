@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="abitobot">
+  <!-- IMU Link -->
+  <xacro:macro name="imu_sensor" params="parent">
+
+    <link name="imu_link">
+      <visual name="imu_visual">
+        <geometry>
+          <box size="0.10000 0.10000 0.10000"/>
+        </geometry>
+        <material name="blue" />
+      </visual>
+    </link>
+
+    <!-- IMU Joint -->
+    <joint name="imu_joint" type="fixed">
+      <parent link="${parent}" />
+      <child link="imu_link" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+    <gazebo reference="imu_link">
+      <sensor name="imu_sensor" type="imu">
+        <always_on>1</always_on>
+        <update_rate>50</update_rate>
+        <topic>imu/data</topic>
+        <imu>
+          <linear_acceleration>
+            <noise type="none"/>
+          </linear_acceleration>
+        </imu>
+      </sensor>
+    </gazebo>
+
+  </xacro:macro>
+</robot>

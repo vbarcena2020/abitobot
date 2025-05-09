@@ -1,0 +1,86 @@
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="abitobot">
+  <xacro:macro name="gripper">
+    <joint name="gripper_left_link_joint" type="prismatic">
+      <limit lower="0.00000" upper="0.30000" effort="5000" velocity="100" />
+      <origin rpy="-1.57080 0.00000 0.00000" xyz="-0.00000 -0.47500 -0.30000" />
+      <parent link="gripper_link" />
+      <child link="gripper_left_link" />
+      <axis xyz="0.00000 0.00000 1.00000" />
+    </joint>
+    <joint name="gripper_link_joint" type="continuous">
+      <limit lower="0" upper="0" effort="5000" velocity="100" />
+      <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 -1.30000" />
+      <parent link="arm_3_link" />
+      <child link="gripper_link" />
+      <axis xyz="0.00000 0.00000 1.00000" />
+    </joint>
+    <joint name="gripper_right_link_joint" type="prismatic">
+      <limit lower="0.00000" upper="0.30000" effort="5000" velocity="100" />
+      <origin rpy="1.57080 0.00000 0.00000" xyz="-0.00000 0.47500 -0.30000" />
+      <parent link="gripper_link" />
+      <child link="gripper_right_link" />
+      <axis xyz="0.00000 0.00000 1.00000" />
+    </joint>
+
+    <link name="gripper_left_link">
+      <collision name="gripper_left_collision">
+        <origin rpy="-0.00000 0.00000 0.00000" xyz="-0.00000 -0.00000 0.00000" />
+        <geometry>
+          <mesh filename="file://$(find abitobot)/meshes/dae/gripper_left.dae" scale="0.10000 0.25000 0.02500" />
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.04208" ixy="0.00000" ixz="0.00000" iyy="0.04833" iyz="0.00000" izz="0.00708" />
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.00000" />
+        <mass value="2.00000" />
+      </inertial>
+      <visual name="gripper_left">
+        <origin rpy="-0.00000 0.00000 0.00000" xyz="-0.00000 -0.00000 0.00000" />
+        <material name="gray" />
+        <geometry>
+          <box size="0.20000 0.50000 0.05000" />
+        </geometry>
+      </visual>
+    </link>
+    <link name="gripper_link">
+      <collision name="gripper_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.00000" />
+        <geometry>
+          <mesh filename="file://$(find abitobot)/meshes/dae/gripper.dae" scale="0.15000 0.50000 0.05000" />
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.16833" ixy="0.00000" ixz="0.00000" iyy="0.01667" iyz="0.00000" izz="0.18167" />
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.00000" />
+        <mass value="2.00000" />
+      </inertial>
+      <visual name="gripper">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 -0.00000" />
+        <material name="gray" />
+        <geometry>
+          <box size="0.30000 1.00000 0.10000" />
+        </geometry>
+      </visual>
+    </link>
+    <link name="gripper_right_link">
+      <collision name="gripper_right_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.00000" />
+        <geometry>
+          <mesh filename="file://$(find abitobot)/meshes/dae/gripper_right.dae" scale="0.10000 0.25000 0.02500" />
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.04208" ixy="0.00000" ixz="0.00000" iyy="0.04833" iyz="0.00000" izz="0.00708" />
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.00000" />
+        <mass value="2.00000" />
+      </inertial>
+      <visual name="gripper_right">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.00000" />
+        <material name="gray" />
+        <geometry>
+          <box size="0.20000 0.50000 0.05000" />
+        </geometry>
+      </visual>
+    </link>
+  </xacro:macro>
+</robot>
